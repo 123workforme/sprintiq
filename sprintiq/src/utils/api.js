@@ -1,4 +1,4 @@
-const API_URL = 'https://sprintiq-3utr.onrender.com'
+const API_URL = 'https://sprintiq-1.onrender.com'
 
 export async function analyzeVideo(file) {
   const formData = new FormData()

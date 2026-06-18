@@ -5,5 +5,15 @@ backend/training_data.csv
 sprintiq/node_modules/
 sprintiq/dist/
 sprintiq/.vite/
+node_modules
+dist
+dist-ssr
+*.local
+*.log
 .DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.egg-info/

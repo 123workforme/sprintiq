@@ -53,7 +53,7 @@ function FeatureRow({ label, value }) {
   )
 }
 
-const API = 'https://sprintiq-3utr.onrender.com'
+const API = 'https://sprintiq-1.onrender.com'
 
 function useVideoReady(sessionId) {
   const [videoUrl, setVideoUrl] = useState(null)

@@ -44,7 +44,7 @@ def extract_features(path):
     fps = cap.get(cv2.CAP_PROP_FPS)
 
     options = PoseLandmarkerOptions(
-        base_options=BaseOptions(model_asset_path=MODEL_PATH),
+        base_options=BaseOptions(model_asset_path=MODEL_PATH, delegate=BaseOptions.Delegate.CPU),
         running_mode=RunningMode.VIDEO,
         num_poses=1,
         min_pose_detection_confidence=0.5,

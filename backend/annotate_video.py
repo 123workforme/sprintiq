@@ -63,7 +63,7 @@ def annotate_video(input_path: str, output_path: str, analysis_result: dict):
     out = cv2.VideoWriter(tmp_raw, cv2.VideoWriter_fourcc(*'MJPG'), fps, (w, h))
 
     options = PoseLandmarkerOptions(
-        base_options=BaseOptions(model_asset_path=MODEL_PATH),
+        base_options=BaseOptions(model_asset_path=MODEL_PATH, delegate=BaseOptions.Delegate.CPU),
         running_mode=RunningMode.VIDEO,
         num_poses=1,
         min_pose_detection_confidence=0.5,

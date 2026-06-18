@@ -14,7 +14,7 @@ WORKDIR /app
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
     && pip uninstall -y opencv-python opencv-contrib-python || true \
-    && pip install --no-cache-dir opencv-python-headless==4.13.0.92
+    && pip install --no-cache-dir --force-reinstall opencv-python-headless==4.13.0.92
 
 COPY backend/ .
 

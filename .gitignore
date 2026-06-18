@@ -1,0 +1,9 @@
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/training_data.csv
+sprintiq/node_modules/
+sprintiq/dist/
+sprintiq/.vite/
+.DS_Store
+*.egg-info/

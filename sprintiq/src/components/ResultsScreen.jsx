@@ -67,9 +67,9 @@ function useVideoReady(sessionId) {
         await new Promise(r => setTimeout(r, 2500))
         try {
           const res = await fetch(`${API}/video/${sessionId}/status`)
-          const { ready } = await res.json()
-          if (ready && !cancelled) {
-            setVideoUrl(`${API}/video/${sessionId}`)
+          const data = await res.json()
+          if (data.ready && data.url && !cancelled) {
+            setVideoUrl(data.url)
             return
           }
         } catch { /* server still processing */ }

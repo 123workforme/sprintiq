@@ -6,3 +6,4 @@ mediapipe==0.10.35
 numpy==2.4.5
 pandas==3.0.3
 scikit-learn==1.8.0
+boto3==1.38.37

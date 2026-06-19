@@ -8,6 +8,7 @@ export const saveSession = (result) => {
   const entry = {
     id: Date.now(),
     date: new Date().toISOString(),
+    session_id: result.session_id,
     risk_score: result.risk_score,
     risk_level: result.risk_level,
     class_probabilities: result.class_probabilities,
@@ -18,6 +19,13 @@ export const saveSession = (result) => {
   sessions.push(entry)
   localStorage.setItem(KEY, JSON.stringify(sessions))
   return entry
+}
+
+export const updateSessionVideoUrl = (sessionId, videoUrl) => {
+  const sessions = getSessions().map(s =>
+    s.session_id === sessionId ? { ...s, video_url: videoUrl } : s
+  )
+  localStorage.setItem(KEY, JSON.stringify(sessions))
 }
 
 export const deleteSession = (id) => {

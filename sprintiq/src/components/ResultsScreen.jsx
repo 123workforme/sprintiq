@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { updateSessionVideoUrl } from '../utils/history'
 
 const SEVERITY_STYLE = {
   high:   { bar: 'bg-red-500',    badge: 'bg-red-500/10 text-red-400 border-red-500/20',    icon: '⚠' },
@@ -55,21 +56,23 @@ function FeatureRow({ label, value }) {
 
 const API = 'https://sprintiq-production-d589.up.railway.app'
 
-function useVideoReady(sessionId) {
-  const [videoUrl, setVideoUrl] = useState(null)
+function useVideoReady(sessionId, cachedUrl) {
+  const [videoUrl, setVideoUrl] = useState(cachedUrl || null)
 
   useEffect(() => {
-    if (!sessionId) return
+    if (!sessionId || cachedUrl) return
     let cancelled = false
+    const deadline = Date.now() + 5 * 60 * 1000
 
     const poll = async () => {
-      while (!cancelled) {
+      while (!cancelled && Date.now() < deadline) {
         await new Promise(r => setTimeout(r, 2500))
         try {
           const res = await fetch(`${API}/video/${sessionId}/status`)
           const data = await res.json()
           if (data.ready && data.url && !cancelled) {
             setVideoUrl(data.url)
+            updateSessionVideoUrl(sessionId, data.url)
             return
           }
         } catch { /* server still processing */ }
@@ -77,15 +80,22 @@ function useVideoReady(sessionId) {
     }
     poll()
     return () => { cancelled = true }
-  }, [sessionId])
+  }, [sessionId, cachedUrl])
 
   return videoUrl
 }
 
 export default function ResultsScreen({ result, onReset }) {
   const [showRaw, setShowRaw] = useState(false)
-  const { risk_score, risk_level, flags, features, session_id } = result
-  const videoUrl = useVideoReady(session_id)
+  const [overlayTimeout, setOverlayTimeout] = useState(false)
+
+  useEffect(() => {
+    if (videoUrl || video_url) return
+    const t = setTimeout(() => setOverlayTimeout(true), 5 * 60 * 1000)
+    return () => clearTimeout(t)
+  }, [videoUrl, video_url])
+  const { risk_score, risk_level, flags, features, session_id, video_url } = result
+  const videoUrl = useVideoReady(session_id, video_url)
   const rs = RISK_STYLE[risk_level] || RISK_STYLE.medium
 
   const highFlags  = flags.filter(f => f.severity === 'high')
@@ -142,6 +152,10 @@ export default function ResultsScreen({ result, onReset }) {
             playsInline
             className="w-full rounded-xl border border-white/10 bg-black"
           />
+        ) : overlayTimeout ? (
+          <div className="w-full h-40 rounded-xl border border-white/10 flex items-center justify-center">
+            <p className="text-white/20 text-xs">Video not available for this session.</p>
+          </div>
         ) : (
           <div className="w-full h-40 rounded-xl border border-white/10 flex flex-col items-center justify-center gap-3">
             <div className="w-6 h-6 rounded-full border-2 border-yellow-400/40 border-t-yellow-400 animate-spin" />

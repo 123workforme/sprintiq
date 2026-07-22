@@ -89,14 +89,15 @@ export default function ResultsScreen({ result, onReset }) {
   const [showRaw, setShowRaw] = useState(false)
   const [overlayTimeout, setOverlayTimeout] = useState(false)
 
+  const { risk_score, risk_level, flags, features, session_id, video_url } = result
+  const videoUrl = useVideoReady(session_id, video_url)
+  const rs = RISK_STYLE[risk_level] || RISK_STYLE.medium
+
   useEffect(() => {
     if (videoUrl || video_url) return
     const t = setTimeout(() => setOverlayTimeout(true), 5 * 60 * 1000)
     return () => clearTimeout(t)
   }, [videoUrl, video_url])
-  const { risk_score, risk_level, flags, features, session_id, video_url } = result
-  const videoUrl = useVideoReady(session_id, video_url)
-  const rs = RISK_STYLE[risk_level] || RISK_STYLE.medium
 
   const highFlags  = flags.filter(f => f.severity === 'high')
   const medFlags   = flags.filter(f => f.severity === 'medium')

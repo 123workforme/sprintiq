@@ -10,7 +10,7 @@ export default function Navbar({ view, setView }) {
         <div className="flex items-baseline gap-2.5">
           <span className="font-black text-lg text-yellow-400">SPRINTIQ</span>
           <span className="text-white/20 text-xs uppercase hidden sm:block">
-            Running Injury Prevention
+            Running Form Feedback
           </span>
         </div>
         <div className="flex gap-1">

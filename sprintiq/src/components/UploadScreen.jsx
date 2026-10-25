@@ -25,8 +25,10 @@ export default function UploadScreen({ onAnalyze, error }) {
         <h1 className="text-3xl font-black mb-2">Analyze Your Run</h1>
         <p className="text-white/40 text-sm">
           Upload a video of yourself running. MediaPipe Pose extracts biomechanical
-          keypoints frame by frame - ankle dorsiflexion, knee flexion, hip drive - and a
-          Random Forest model trained on sports medicine literature flags injury risk patterns.
+          keypoints frame by frame (ankle dorsiflexion, knee flexion, hip drive), and an
+          exploratory Random Forest model, trained on a synthetic dataset built from published
+          research, scores your form. This is coaching feedback, not a diagnosis: the model is not
+          clinically validated.
         </p>
       </div>
 

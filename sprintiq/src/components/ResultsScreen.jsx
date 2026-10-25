@@ -108,7 +108,7 @@ export default function ResultsScreen({ result, onReset }) {
       <div className={`mb-8 p-5 rounded-xl border ${rs.ring} bg-white/5`}>
         <div className="flex items-start justify-between mb-4">
           <div>
-            <p className="text-xs text-white/30 uppercase mb-1">Injury Risk Score</p>
+            <p className="text-xs text-white/30 uppercase mb-1">Form Risk Score (exploratory)</p>
             <p className={`text-6xl font-black ${rs.color}`}>{risk_score}</p>
             <p className={`text-sm mt-1 ${rs.color}`}>{rs.label}</p>
           </div>

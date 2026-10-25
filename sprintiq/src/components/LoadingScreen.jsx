@@ -6,7 +6,7 @@ const STEPS = [
   'Measuring knee flexion at ground contact…',
   'Comparing left and right hip drive…',
   'Detecting ground contact timing…',
-  'Running injury risk analysis…',
+  'Scoring running form…',
   'Generating recommendations…',
 ]
 
